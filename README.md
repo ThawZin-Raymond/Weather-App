@@ -1,11 +1,19 @@
-# Simple Weather App Website
-The Simple Weather App Website is a lightweight and user-friendly platform to quickly check the weather for any location. With a clean and intuitive design, you can easily get the current weather conditions as well as forecast data.
+# Simple Weather App
 
-Features
-Search Bar: Enter any city or location to get its current weather.
-Current Weather: Displays the current temperature, weather condition, humidity, wind speed, and an icon representing the weather.
-Responsive Design: Adjusts perfectly to mobile, tablet, and desktop screens.
-Getting Started
-Prerequisites
-A modern web browser (e.g., Chrome, Firefox, Safari).
-Text editor (e.g., Visual Studio Code, Sublime Text).
+A minimalistic weather app to fetch and display current weather conditions for any city.
+
+![Weather App Screenshot]
+
+## Features
+
+- Search weather by city name
+- Display current temperature, humidity, and wind speed
+- Responsive design suitable for desktop and mobile views
+- Elegant user interface with a modern look
+
+## Technologies Used
+
+- HTML, CSS, and JavaScript
+- OpenWeatherMap API for fetching weather data
+- Webpack/Babel for bundling (optional)
+
