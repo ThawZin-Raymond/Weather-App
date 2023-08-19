@@ -18,16 +18,16 @@ const createWeatherCard = (cityName, weatherItem, index) => {
             </div>
             <div class="icon">
               <img src="https://openweathermap.org/img/wn/${
-                weatherITem.weather[0].icon
-              }@4x.png" alt="weather-image" />
+                weatherItem.weather[0].icon
+              }@4x.jpg" alt="weather-image" />
               <h4>${weatherItem.weather[0].description}</h4>
             </div>`;
   } else {
     return `<li class="card">
             <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
             <img src="https://openweathermap.org/img/wn/${
-              weatherITem.weather[0].icon
-            }@4x.png" alt="weather-image" />
+              weatherItem.weather[0].icon
+            }@4x.jpg" alt="weather-image" />
             <h4>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(
               2
             )}°C</h4>
@@ -38,7 +38,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 };
 
 const getWeatherDetails = (cityName, lat, lon) => {
-  const WEATHER_API_URL = `http://api.openweathermap.org/data/2.5/forecast/lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+  const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast/lat=${lat}&lon=${lon}&appid=${API_KEY}`;
 
   fetch(WEATHER_API_URL)
     .then((response) => response.json())
@@ -56,7 +56,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
       currentWeatherDiv.innerHTML = "";
       weatherCardsDiv.innerHTML = "";
 
-      fiveDaysForecast.forEach((weatherItem, index) => {
+      fiveDaysForecast.forEach((cityName, weatherItem, index) => {
         if (index === 0) {
           currentWeatherDiv.insertAdjacentHTML(
             "beforeend",
@@ -65,7 +65,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
         } else {
           weatherCardsDiv.insertAdjacentHTML(
             "beforeend",
-            createWeatherCard(weatherItem)
+            createWeatherCard(cityName, weatherItem, index)
           );
         }
       });
@@ -79,7 +79,7 @@ const getCityCoordinates = () => {
   const cityName = cityInput.value.trim();
   if (cityName === "") return;
 
-  const GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${API_KEY}`;
+  const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${API_KEY}`;
 
   fetch(GEOCODING_API_URL)
     .then((response) => response.json())
@@ -93,11 +93,11 @@ const getCityCoordinates = () => {
     });
 };
 
-getUserCoordinates = () => {
+const getUserCoordinates = () => {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const { latitude, longitude } = position.coords;
-      const REVERSE_GEOCODING_URL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid={API_KEY}`;
+      const REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
       fetch(REVERSE_GEOCODING_URL)
         .then((response) => response.json())
         .then((data) => {
